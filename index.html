@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOPI? - Countdown</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Orbitron', sans-serif;
+      background: url('bg-pattern.png') no-repeat center center fixed;
+      background-size: cover;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.65);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .logo {
+      margin-bottom: 30px;
+    }
+
+    .logo img {
+      max-width: 200px;
+      height: auto;
+    }
+
+    .countdown {
+      font-size: 3rem;
+      color: #39ff14;
+      text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
+      margin-bottom: 40px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 25px;
+      justify-content: center;
+    }
+
+    .social-icons a img {
+      width: 40px;
+      height: 40px;
+      filter: drop-shadow(0 0 5px #39ff14);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .social-icons a img:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="logo">
+      <img src="logo-topi.png" alt="Logo TOPI?">
+    </div>
+    <div class="countdown" id="countdown"></div>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/topibrand_official" target="_blank">
+        <img src="icon-instagram.png" alt="Instagram">
+      </a>
+      <a href="https://www.tiktok.com/@topibrand_official" target="_blank">
+        <img src="icon-tiktok.png" alt="TikTok">
+      </a>
+      <a href="https://www.pinterest.it/topibrand_official" target="_blank">
+        <img src="icon-pinterest.png" alt="Pinterest">
+      </a>
+    </div>
+  </div>
+
+  <audio autoplay loop>
+    <source src="music-background-track.mp3" type="audio/mpeg">
+    Il tuo browser non supporta l'audio HTML5.
+  </audio>
+
+  <script>
+    const targetDate = new Date("2025-07-01T00:00:00").getTime();
+
+    const countdown = document.getElementById("countdown");
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        clearInterval(interval);
+        countdown.innerHTML = "Siamo online!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdown.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+  </script>
+</body>
+</html>
