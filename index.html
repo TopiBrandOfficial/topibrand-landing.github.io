@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TOPIBRANDOFFICIAL - Countdown</title>
+  <title>TOPIBRANDOFFICIAL</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
@@ -31,6 +31,13 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      transition: opacity 1s ease-in-out;
+      z-index: 10;
+    }
+
+    .overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .logo {
@@ -53,6 +60,7 @@
       display: flex;
       gap: 25px;
       justify-content: center;
+      margin-top: 20px;
     }
 
     .social-icons a img {
@@ -65,14 +73,34 @@
     .social-icons a img:hover {
       transform: scale(1.2);
     }
+
+    .enter-button {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      background-color: #000;
+      color: #39ff14;
+      border: 2px solid #39ff14;
+      border-radius: 8px;
+      cursor: pointer;
+      text-shadow: 0 0 5px #39ff14;
+      box-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .enter-button:hover {
+      background-color: #111;
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
-  <div class="overlay">
+  <div class="overlay" id="overlay">
     <div class="logo">
       <img src="logo-topi.png" alt="Logo TOPI?">
     </div>
     <div class="countdown" id="countdown"></div>
+    <button class="enter-button" onclick="enterSite()">ENTRA NEL SITO</button>
     <div class="social-icons">
       <a href="https://www.instagram.com/topibrand_official" target="_blank">
         <img src="icon-instagram.png" alt="Instagram">
@@ -86,23 +114,23 @@
     </div>
   </div>
 
- <audio id="bg-music" autoplay loop muted>
-  <source src="background-track.mp3" type="audio/mpeg">
-  Il tuo browser non supporta l'audio HTML5.
-</audio>
-
-<script>
-  // Sblocca l'audio dopo il primo click
-  document.addEventListener("click", () => {
-    const audio = document.getElementById("bg-music");
-    audio.muted = false;
-    audio.play();
-  });
-</script>
+  <audio id="bg-music" loop>
+    <source src="background-track.mp3" type="audio/mpeg">
+    Il tuo browser non supporta l'audio HTML5.
+  </audio>
 
   <script>
-    const targetDate = new Date("2025-07-01T00:00:00").getTime();
+    function enterSite() {
+      const overlay = document.getElementById("overlay");
+      const audio = document.getElementById("bg-music");
+      overlay.classList.add("fade-out");
+      setTimeout(() => {
+        overlay.style.display = "none";
+      }, 1000);
+      audio.play();
+    }
 
+    const targetDate = new Date("2025-07-01T00:00:00").getTime();
     const countdown = document.getElementById("countdown");
     const interval = setInterval(() => {
       const now = new Date().getTime();
