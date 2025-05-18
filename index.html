@@ -106,8 +106,33 @@
     .social-icons a img:hover {
       transform: scale(1.2);
     }
+
+    .disclaimer {
+      font-size: 0.9rem;
+      color: #999;
+      text-align: center;
+      padding: 20px 15px;
+      margin-top: 40px;
+      border-top: 1px solid #444;
+      background-color: #111;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+  .disclaimer p {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+@media (max-width: 480px) {
+  .disclaimer {
+    font-size: 0.7rem;
+    padding: 15px 10px;
+    }
+}
   </style>
 </head>
+
 <body>
 
   <!-- Overlay iniziale con solo bottone -->
@@ -133,6 +158,15 @@
         <img src="icon-pinterest.png" alt="Pinterest">
       </a>
     </div>
+    <!-- Disclaimer -->
+    <div class="disclaimer" id="disclaimer">
+      <p>
+        Instagram, Pinterest e TikTok sono marchi registrati dei rispettivi proprietari.
+        L'uso di questi marchi sul presente sito è esclusivamente a scopo informativo
+        e non implica alcuna affiliazione o approvazione da parte dei rispettivi proprietari.
+        Con il loro utilizzo non si intende ledere alcun diritto.
+      </p>
+    </div> 
   </div>
 
   <!-- Audio -->
@@ -183,33 +217,5 @@
       countdown.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }, 1000);
   </script>
-
-<!-- Disclaimer -->
-<div class="disclaimer">
-  <p>
-    Instagram, Pinterest e TikTok sono marchi registrati dei rispettivi proprietari. 
-    L'uso di questi marchi sul presente sito è esclusivamente a scopo informativo 
-    e non implica alcuna affiliazione o approvazione da parte dei rispettivi proprietari.
-    Con il loro utilizzo non si intende ledere alcun diritto.
-  </p>
-</div>
-
-<style>
-  .disclaimer {
-    font-size: 0.8rem;
-    color: #999;
-    text-align: center;
-    padding: 20px 10px;
-    margin-top: 30px;
-    border-top: 1px solid #444;
-    background-color: #111; /* o trasparente, se preferisci */
-  }
-
-  .disclaimer p {
-    margin: 0;
-    line-height: 1.5;
-  }
-</style>  
-
 </body>
 </html>
