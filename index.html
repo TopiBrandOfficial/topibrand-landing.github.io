@@ -2,172 +2,145 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TOPIBRANDOFFICIAL</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="icon" href="favicon.png" />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      font-family: 'Orbitron', sans-serif;
-      background: url('bg-pattern.png') no-repeat center center fixed;
-      background-size: cover;
-      height: 100vh;
-      width: 100vw;
+    /* Reset & Base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; width: 100%; overflow: hidden; font-family: 'Orbitron', sans-serif; }
+    body {
+      background: url('bg-pattern.png') center/cover no-repeat;
+      color: #39ff14;
     }
 
-    .overlay {
-      background-color: rgba(0, 0, 0, 0.65);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    /* Overlay & Content Layout */
+    .overlay, .main {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
       text-align: center;
       transition: opacity 1s ease;
-      z-index: 2;
     }
+    .overlay { background: rgba(0, 0, 0, 0.65); z-index: 2; }
+    .hidden { display: none !important; opacity: 0 !important; }
 
-    #enter-btn {
-      padding: 20px 40px;
+    /* Shared Button Style */
+    .btn {
+      display: inline-block;
+      padding: 1rem 2rem;
       font-size: 1.2rem;
-      color: #39ff14;
-      background-color: transparent;
-      border: 2px solid #39ff14;
-      border-radius: 10px;
+      color: inherit;
+      background: transparent;
+      border: 2px solid currentColor;
+      border-radius: 0.5rem;
       cursor: pointer;
-      box-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
-      transition: all 0.3s ease;
+      box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
     }
-
-    #enter-btn:hover {
-      background-color: #39ff14;
+    .btn:hover {
+      background: currentColor;
       color: #000;
-      box-shadow: 0 0 20px #39ff14, 0 0 40px #39ff14;
+      box-shadow: 0 0 20px currentColor, 0 0 40px currentColor;
     }
 
-    #shop-btn {
-      padding: 20px 40px;
-      font-size: 1.2rem;
-      color: #39ff14;
-      background-color: transparent;
-      border: 2px solid #39ff14;
-      border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
-      transition: all 0.3s ease;
-      margin-top: 20px;
-    }
+    /* Main Content */
+    .main { flex-direction: column; z-index: 1; opacity: 0; }
+    .logo img { max-width: 200px; }
+    .tagline, .countdown { font-size: 3rem; text-shadow: 0 0 10px currentColor, 0 0 20px currentColor; white-space: nowrap; }
+    @media (max-width: 480px) { .countdown { font-size: 1.8rem; } }
 
-    #shop-btn:hover {
-      background-color: #39ff14;
-      color: #000;
-      box-shadow: 0 0 20px #39ff14, 0 0 40px #39ff14;
-    }
+    /* Social Icons */
+    .social { display: flex; gap: 1.5rem; margin-top: 2rem; }
+    .social img { width: 2.5rem; filter: drop-shadow(0 0 5px currentColor); transition: transform 0.2s; }
+    .social img:hover { transform: scale(1.2); }
 
-    .main-content {
-      opacity: 0;
-      transition: opacity 1s ease;
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1;
-    }
-
-    .logo {
-      margin-bottom: 30px;
-    }
-
-    .logo img {
-      max-width: 200px;
-      height: auto;
-    }
-
-    .countdown {
-      font-size: 3rem;
-      color: #39ff14;
-      text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
-      margin-bottom: 40px;
-      white-space: nowrap;
-    }
-
-    @media (max-width: 480px) {
-      .countdown {
-        font-size: 1.8rem;
-      }
-    }
-
-    .social-icons {
-      display: flex;
-      gap: 25px;
-      justify-content: center;
-    }
-
-    .social-icons a img {
-      width: 40px;
-      height: 40px;
-      filter: drop-shadow(0 0 5px #39ff14);
-      transition: transform 0.2s ease-in-out;
-    }
-
-    .social-icons a img:hover {
-      transform: scale(1.2);
-    }
-
+    /* Disclaimer */
     .disclaimer {
-      font-size: 0.9rem;
-      color: #999;
+      position: absolute; bottom: 0;
+      width: 100%; padding: 1rem;
+      background: #111; color: #999;
+      font-size: 0.9rem; border-top: 1px solid #444;
       text-align: center;
-      padding: 20px 15px;
-      margin-top: 40px;
-      border-top: 1px solid #444;
-      background-color: #111;
+    }
+    @media (max-width: 480px) { .disclaimer { font-size: 0.7rem; } }
+
+    /* Professional Cookie Banner */
+    #cookie-banner {
+      position: fixed;
+      bottom: 0; left: 0;
       width: 100%;
-      box-sizing: border-box;
+      background: rgba(0, 0, 0, 0.9);
+      color: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      font-size: 0.9rem;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.5);
+      z-index: 9999;
     }
+    #cookie-banner p {
+      margin-right: 1rem;
+      flex: 1;
+    }
+    #cookie-banner .actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    #cookie-banner .actions button {
+      padding: 0.5rem 1rem;
+      font-family: 'Orbitron', sans-serif;
+      border: none;
+      border-radius: 0.3rem;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+    #cookie-banner .actions button#accept-all { background: #39ff14; color: #000; }
+    #cookie-banner .actions button#cookie-settings {
+      background: transparent;
+      border: 1px solid #39ff14;
+      color: #39ff14;
+    }
+    #cookie-banner .actions button:hover { opacity: 0.8; }
 
-  .disclaimer p {
-      margin: 0;
-      line-height: 1.5;
+    /* Cookie Modal */
+    #cookie-modal {
+      display: none;
+      position: fixed;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: #222;
+      color: #eee;
+      padding: 2rem;
+      border: 2px solid #39ff14;
+      border-radius: 0.5rem;
+      z-index: 10000;
+      max-width: 90%; width: 400px;
     }
-
-@media (max-width: 480px) {
-  .disclaimer {
-    font-size: 0.7rem;
-    padding: 15px 10px;
-    }
-}
+    #cookie-modal h3 { color: #39ff14; margin-bottom: 1rem; }
+    #cookie-modal form label { display: block; margin-bottom: 0.5rem; }
+    #cookie-modal form button { margin-top: 1rem; }
   </style>
 </head>
-
 <body>
 
-  <!-- Overlay iniziale con solo bottone -->
+  <!-- Intro Overlay -->
   <div class="overlay" id="intro">
-    <button id="enter-btn">ENTRA NEL SITO</button>
+    <button class="btn" id="enter-btn">ENTRA NEL SITO</button>
   </div>
 
-  <!-- Contenuto che appare dopo il click -->
-  <div class="main-content" id="content">
+  <!-- Main Content -->
+  <div class="main" id="main-content">
     <div class="logo">
-      <div id="before-countdown" class="countdown">#SIAMOOVUNQUE</div>
-      <img id="logo-img" src="logo-topi.png" alt="Logo TOPI?" style="display: none;">
+      <div class="tagline" id="tagline">#SIAMOOVUNQUE</div>
+      <img id="logo-img" src="logo-topi.png" alt="Logo TOPI?" class="hidden">
     </div>
     <div class="countdown" id="countdown"></div>
-    <button id="shop-btn" style="display: none;">VAI ALLO SHOP ONLINE</button>
-    <div class="social-icons">
+    <button class="btn hidden" id="shop-btn">VAI ALLO SHOP ONLINE</button>
+
+    <div class="social">
       <a href="https://www.instagram.com/topibrand_official" target="_blank">
         <img src="icon-instagram.png" alt="Instagram">
       </a>
@@ -178,155 +151,94 @@
         <img src="icon-pinterest.png" alt="Pinterest">
       </a>
     </div>
-    <!-- Disclaimer -->
-    <div class="disclaimer" id="disclaimer">
-      <p>
-        Instagram, Pinterest e TikTok sono marchi registrati dei rispettivi proprietari.
-        L'uso di questi marchi sul presente sito è esclusivamente a scopo informativo
-        e non implica alcuna affiliazione o approvazione da parte dei rispettivi proprietari.
-        Con il loro utilizzo non si intende ledere alcun diritto.
-      </p>
-    </div> 
+
+    <div class="disclaimer">
+      <p>Instagram, Pinterest e TikTok sono marchi registrati dei rispettivi proprietari. L'uso di questi marchi non implica affiliazione o approvazione.</p>
+    </div>
   </div>
 
-  <!-- Audio -->
-  <audio id="bg-music" autoplay loop muted>
+  <!-- Background Audio -->
+  <audio id="bg-music" loop muted>
     <source src="background-track.mp3" type="audio/mpeg">
-    Il tuo browser non supporta l'audio HTML5.
+    Il tuo browser non supporta l'audio.
   </audio>
 
-  <!-- Script: animazioni e countdown -->
+  <!-- Cookie Banner -->
+  <div id="cookie-banner">
+    <p>Usiamo cookie e tecnologie simili per migliorare l’esperienza sul sito, analizzare il traffico e per scopi di marketing. Puoi accettare tutti o gestire le preferenze.</p>
+    <div class="actions">
+      <button id="accept-all">Accetta tutti</button>
+      <button id="cookie-settings">Preferenze</button>
+    </div>
+  </div>
+
+  <!-- Cookie Modal -->
+  <div id="cookie-modal">
+    <h3>Gestione preferenze cookie</h3>
+    <form id="cookie-form">
+      <label><input type="checkbox" checked disabled> Cookie necessari (sempre attivi)</label>
+      <label><input type="checkbox" id="analytics"> Cookie statistici</label>
+      <label><input type="checkbox" id="marketing"> Cookie marketing</label>
+      <button type="submit" class="btn">Salva preferenze</button>
+      <button type="button" class="btn" id="cancel-modal">Annulla</button>
+    </form>
+  </div>
+
+  <!-- Scripts -->
   <script>
-    // Click per mostrare contenuto e far partire l'audio
-    document.getElementById("enter-btn").addEventListener("click", () => {
-      // Dissolvenza del bottone/overlay
-      document.getElementById("intro").style.opacity = "0";
-      setTimeout(() => {
-        document.getElementById("intro").style.display = "none";
-        document.getElementById("content").style.opacity = "1";
-      }, 1000);
-
-      // Avvia audio sbloccato
-      const audio = document.getElementById("bg-music");
-      audio.muted = false;
-      audio.play();
-    });
-
-    // Countdown
-    const targetDate = new Date("2025-07-01T00:00:00").getTime();
-    const countdown = document.getElementById("countdown");
-    const interval = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      if (distance < 0) {
-        clearInterval(interval);
-
-        // Nasconde la scritta iniziale e il countdown
-        document.getElementById("before-countdown").style.display = "none";
-        countdown.style.display = "none";
-
-        // Mostra logo e bottone shop
-        document.getElementById("logo-img").style.display = "block";
-        document.getElementById("shop-btn").style.display = "inline-block";
-
-        // attiva bottone shop
-        document.getElementById("shop-btn").addEventListener("click", () => {
-          window.open("https://ko-fi.com/topibrand", "_blank");
-        });
-
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      countdown.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }, 1000);
-
-    window.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
+      // Elementi
+      const intro = document.getElementById('intro');
+      const main = document.getElementById('main-content');
+      const enterBtn = document.getElementById('enter-btn');
+      const audio = document.getElementById('bg-music');
+      const countdownEl = document.getElementById('countdown');
+      const tagline = document.getElementById('tagline');
+      const logoImg = document.getElementById('logo-img');
+      const shopBtn = document.getElementById('shop-btn');
       const banner = document.getElementById('cookie-banner');
       const modal = document.getElementById('cookie-modal');
       const form = document.getElementById('cookie-form');
 
-      const consent = localStorage.getItem('cookieConsent');
-      if (!consent) banner.style.display = 'block';
+      // Avvio sito
+      enterBtn.addEventListener('click', () => {
+        intro.classList.add('hidden');
+        setTimeout(() => { main.style.opacity = '1'; }, 1000);
+        audio.muted = false;
+        audio.play();
+      });
 
-      document.getElementById('accept-all').addEventListener('click', () => {
-        localStorage.setItem('cookieConsent', JSON.stringify({
-          necessary: true,
-          analytics: true,
-          marketing: true
-        }));
+      // Countdown
+      const target = new Date('2025-07-01T00:00:00').getTime();
+      const timer = setInterval(() => {
+        const diff = target - Date.now();
+        if (diff <= 0) {
+          clearInterval(timer);
+          tagline.classList.add('hidden');
+          countdownEl.classList.add('hidden');
+          logoImg.classList.remove('hidden');
+          shopBtn.classList.remove('hidden');
+          shopBtn.addEventListener('click', () => window.open('https://ko-fi.com/topibrand','_blank'));
+          return;
+        }
+        const d = Math.floor(diff/864e5), h = Math.floor(diff%864e5/36e5), m = Math.floor(diff%36e5/6e4), s = Math.floor(diff%6e4/1e3);
+        countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
+      }, 1000);
+
+      // Cookie Consent
+      if (!localStorage.getItem('cookieConsent')) banner.style.display = 'flex';
+      document.getElementById('accept-all').onclick = () => {
+        localStorage.setItem('cookieConsent', JSON.stringify({ necessary:true, analytics:true, marketing:true }));
         banner.style.display = 'none';
-        enableOptionalScripts();
-      });
-
-      document.getElementById('cookie-settings').addEventListener('click', () => {
-        modal.style.display = 'block';
-      });
-
-      document.getElementById('cancel-modal').addEventListener('click', () => {
-        modal.style.display = 'none';
-      });
-
-      form.addEventListener('submit', (e) => {
+      };
+      document.getElementById('cookie-settings').onclick = () => modal.style.display = 'block';
+      document.getElementById('cancel-modal').onclick = () => modal.style.display = 'none';
+      form.addEventListener('submit', e => {
         e.preventDefault();
-        const analytics = document.getElementById('analytics').checked;
-        const marketing = document.getElementById('marketing').checked;
-
-        localStorage.setItem('cookieConsent', JSON.stringify({
-          necessary: true,
-          analytics,
-          marketing
-        }));
-        modal.style.display = 'none';
-        banner.style.display = 'none';
-        enableOptionalScripts();
+        localStorage.setItem('cookieConsent', JSON.stringify({ necessary:true, analytics:form.analytics.checked, marketing:form.marketing.checked }));
+        banner.style.display = 'none'; modal.style.display = 'none';
       });
-
-      function enableOptionalScripts() {
-        const consent = JSON.parse(localStorage.getItem('cookieConsent'));
-        if (consent.analytics) {
-          // Esempio: carica Google Analytics
-          // const ga = document.createElement('script');
-          // ga.src = "https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y";
-          // ga.async = true;
-          // document.head.appendChild(ga);
-        }
-        if (consent.marketing) {
-          // Esempio: abilita pixel o embed social
-        }
-      }
     });
   </script>
-
-  <!-- Cookie Banner -->
-  <div id="cookie-banner" style="position: fixed; bottom: 0; left: 0; width: 100%; background: #111; color: #eee; padding: 20px; font-size: 0.9rem; z-index: 9999; border-top: 2px solid #39ff14; display: none;">
-    <p style="margin: 0 0 10px;">
-      Usiamo cookie e tecnologie simili per migliorare l’esperienza, analizzare il traffico e collegarci a piattaforme esterne. Puoi accettare tutti o gestire le preferenze.
-    </p>
-    <div style="display: flex; gap: 10px;">
-      <button id="accept-all" style="background: #39ff14; color: black; font-family: 'Orbitron'; padding: 8px 16px; border: none; cursor: pointer;">Accetta tutti</button>
-      <button id="cookie-settings" style="background: transparent; border: 2px solid #39ff14; color: #39ff14; padding: 8px 16px; font-family: 'Orbitron'; cursor: pointer;">Preferenze</button>
-    </div>
-  </div>
-
-  <!-- Cookie Preferences Modal -->
-  <div id="cookie-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #111; color: #eee; padding: 30px; border: 2px solid #39ff14; z-index: 10000; max-width: 90%; width: 400px;">
-    <h3 style="margin-top: 0; color: #39ff14;">Gestione preferenze cookie</h3>
-    <form id="cookie-form">
-      <label><input type="checkbox" checked disabled> Cookie necessari (sempre attivi)</label><br><br>
-      <label><input type="checkbox" id="analytics"> Cookie statistici (es. Google Analytics)</label><br><br>
-      <label><input type="checkbox" id="marketing"> Cookie marketing (es. Pixel Facebook, Instagram embed)</label><br><br>
-      <div style="margin-top: 20px; display: flex; gap: 10px;">
-        <button type="submit" style="background: #39ff14; color: black; font-family: 'Orbitron'; padding: 8px 16px; border: none; cursor: pointer;">Salva scelte</button>
-        <button type="button" id="cancel-modal" style="background: transparent; border: 2px solid #39ff14; color: #39ff14; padding: 8px 16px; font-family: 'Orbitron'; cursor: pointer;">Annulla</button>
-      </div>
-    </form>
-  </div>
-  
 </body>
 </html>
