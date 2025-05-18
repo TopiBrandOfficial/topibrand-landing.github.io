@@ -81,6 +81,13 @@
       color: #39ff14;
       text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
       margin-bottom: 40px;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 480px) {
+      .countdown {
+        font-size: 1.8rem;
+      }
     }
 
     .social-icons {
@@ -111,7 +118,8 @@
   <!-- Contenuto che appare dopo il click -->
   <div class="main-content" id="content">
     <div class="logo">
-      <img src="logo-topi.png" alt="Logo TOPI?">
+      <div id="before-countdown" class="countdown">#SIAMOOVUNQUE</div>
+      <img id="logo-img" src="logo-topi.png" alt="Logo TOPI?" style="display: none;">
     </div>
     <div class="countdown" id="countdown"></div>
     <div class="social-icons">
@@ -160,6 +168,10 @@
       if (distance < 0) {
         clearInterval(interval);
         countdown.innerHTML = "Siamo online!";
+
+        // Mostra il logo, nasconde la scritta iniziale
+        document.getElementById("before-countdown").style.display = "none";
+        document.getElementById("logo-img").style.display = "block";
         return;
       }
 
