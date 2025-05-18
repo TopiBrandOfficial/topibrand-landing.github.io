@@ -52,6 +52,25 @@
       box-shadow: 0 0 20px #39ff14, 0 0 40px #39ff14;
     }
 
+    #shop-btn {
+      padding: 20px 40px;
+      font-size: 1.2rem;
+      color: #39ff14;
+      background-color: transparent;
+      border: 2px solid #39ff14;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+    }
+
+    #shop-btn:hover {
+      background-color: #39ff14;
+      color: #000;
+      box-shadow: 0 0 20px #39ff14, 0 0 40px #39ff14;
+    }
+
     .main-content {
       opacity: 0;
       transition: opacity 1s ease;
@@ -147,6 +166,7 @@
       <img id="logo-img" src="logo-topi.png" alt="Logo TOPI?" style="display: none;">
     </div>
     <div class="countdown" id="countdown"></div>
+    <button id="shop-btn" style="display: none;">VAI ALLO SHOP ONLINE</button>
     <div class="social-icons">
       <a href="https://www.instagram.com/topibrand_official" target="_blank">
         <img src="icon-instagram.png" alt="Instagram">
@@ -201,11 +221,20 @@
 
       if (distance < 0) {
         clearInterval(interval);
-        countdown.innerHTML = "Siamo online!";
 
-        // Mostra il logo, nasconde la scritta iniziale
+        // Nasconde la scritta iniziale e il countdown
         document.getElementById("before-countdown").style.display = "none";
+        countdown.style.display = "none";
+
+        // Mostra logo e bottone shop
         document.getElementById("logo-img").style.display = "block";
+        document.getElementById("shop-btn").style.display = "inline-block";
+
+        // attiva bottone shop
+        document.getElementById("shop-btn").addEventListener("click", () => {
+          window.open("https://ko-fi.com/topibrand", "_blank");
+        });
+
         return;
       }
 
@@ -216,6 +245,88 @@
 
       countdown.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }, 1000);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const banner = document.getElementById('cookie-banner');
+      const modal = document.getElementById('cookie-modal');
+      const form = document.getElementById('cookie-form');
+
+      const consent = localStorage.getItem('cookieConsent');
+      if (!consent) banner.style.display = 'block';
+
+      document.getElementById('accept-all').addEventListener('click', () => {
+        localStorage.setItem('cookieConsent', JSON.stringify({
+          necessary: true,
+          analytics: true,
+          marketing: true
+        }));
+        banner.style.display = 'none';
+        enableOptionalScripts();
+      });
+
+      document.getElementById('cookie-settings').addEventListener('click', () => {
+        modal.style.display = 'block';
+      });
+
+      document.getElementById('cancel-modal').addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const analytics = document.getElementById('analytics').checked;
+        const marketing = document.getElementById('marketing').checked;
+
+        localStorage.setItem('cookieConsent', JSON.stringify({
+          necessary: true,
+          analytics,
+          marketing
+        }));
+        modal.style.display = 'none';
+        banner.style.display = 'none';
+        enableOptionalScripts();
+      });
+
+      function enableOptionalScripts() {
+        const consent = JSON.parse(localStorage.getItem('cookieConsent'));
+        if (consent.analytics) {
+          // Esempio: carica Google Analytics
+          // const ga = document.createElement('script');
+          // ga.src = "https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y";
+          // ga.async = true;
+          // document.head.appendChild(ga);
+        }
+        if (consent.marketing) {
+          // Esempio: abilita pixel o embed social
+        }
+      }
+    });
   </script>
+
+  <!-- Cookie Banner -->
+  <div id="cookie-banner" style="position: fixed; bottom: 0; left: 0; width: 100%; background: #111; color: #eee; padding: 20px; font-size: 0.9rem; z-index: 9999; border-top: 2px solid #39ff14; display: none;">
+    <p style="margin: 0 0 10px;">
+      Usiamo cookie e tecnologie simili per migliorare l’esperienza, analizzare il traffico e collegarci a piattaforme esterne. Puoi accettare tutti o gestire le preferenze.
+    </p>
+    <div style="display: flex; gap: 10px;">
+      <button id="accept-all" style="background: #39ff14; color: black; font-family: 'Orbitron'; padding: 8px 16px; border: none; cursor: pointer;">Accetta tutti</button>
+      <button id="cookie-settings" style="background: transparent; border: 2px solid #39ff14; color: #39ff14; padding: 8px 16px; font-family: 'Orbitron'; cursor: pointer;">Preferenze</button>
+    </div>
+  </div>
+
+  <!-- Cookie Preferences Modal -->
+  <div id="cookie-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #111; color: #eee; padding: 30px; border: 2px solid #39ff14; z-index: 10000; max-width: 90%; width: 400px;">
+    <h3 style="margin-top: 0; color: #39ff14;">Gestione preferenze cookie</h3>
+    <form id="cookie-form">
+      <label><input type="checkbox" checked disabled> Cookie necessari (sempre attivi)</label><br><br>
+      <label><input type="checkbox" id="analytics"> Cookie statistici (es. Google Analytics)</label><br><br>
+      <label><input type="checkbox" id="marketing"> Cookie marketing (es. Pixel Facebook, Instagram embed)</label><br><br>
+      <div style="margin-top: 20px; display: flex; gap: 10px;">
+        <button type="submit" style="background: #39ff14; color: black; font-family: 'Orbitron'; padding: 8px 16px; border: none; cursor: pointer;">Salva scelte</button>
+        <button type="button" id="cancel-modal" style="background: transparent; border: 2px solid #39ff14; color: #39ff14; padding: 8px 16px; font-family: 'Orbitron'; cursor: pointer;">Annulla</button>
+      </div>
+    </form>
+  </div>
+  
 </body>
 </html>
